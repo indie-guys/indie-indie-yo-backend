@@ -3,8 +3,6 @@ package com.mindoo.indie.api;
 import org.junit.jupiter.api.Test;
 import org.springframework.web.client.RestTemplate;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SearchApiClientTest {
     SearchApiClient searchApiClient;
 
@@ -18,7 +16,9 @@ class SearchApiClientTest {
         SearchCategory category = SearchCategory.ARTIST;
 
         // when
-        final String result = searchApiClient.searchApi(keyword, category);
+        final String result = searchApiClient.searchAsXml(keyword, category);
+        XmlParser parser = new XmlParser();
+        String r = parser.parse(result);
 
         // then
         System.out.println(result);
@@ -33,10 +33,12 @@ class SearchApiClientTest {
         SearchCategory category = SearchCategory.ALBUM;
 
         // when
-        final String result = searchApiClient.searchApi(keyword, category);
+        final String result = searchApiClient.searchAsXml(keyword, category);
+        XmlParser parser = new XmlParser();
+        String r = parser.parse(result);
 
         // then
-        System.out.println(result);
+        //System.out.println(result);
     }
 
     @Test
@@ -47,7 +49,7 @@ class SearchApiClientTest {
         Long albumId = 726912L;
 
         // when
-        final String result = searchApiClient.getAlbumInfo(albumId);
+        final String result = searchApiClient.albumInfoAsXml(albumId);
 
         // then
         System.out.println(result);
